@@ -17,7 +17,13 @@
                 <form id="ttsForm">
                     <div class="mb-3">
                         <label for="text" class="form-label">Enter your text</label>
-                        <textarea class="form-control" id="text" name="text" rows="4" required></textarea>
+                        <textarea class="form-control" id="text" name="text" rows="4"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="textFile" class="form-label">Or upload a text file</label>
+                        <input type="file" class="form-control" id="textFile" name="textFile" accept=".txt">
+                        <small class="form-text text-muted">Supported format: .txt files</small>
                     </div>
 
                     <div class="row">
