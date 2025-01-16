@@ -19,17 +19,20 @@ def index():
 def synthesize():
     try:
         text = request.form.get('text', '').strip()
-        language = request.form.get('language', 'en')
+        language = request.form.get('language', 'en-us')
         speaking_rate = request.form.get('speakingRate', 'normal')
 
         if not text:
             return jsonify({'error': 'Text is required'}), 400
 
+        # Split language code to get basic language code
+        base_lang = language.split('-')[0]
+
         # Create a temporary file for the audio
         temp_file = tempfile.NamedTemporaryFile(suffix='.mp3', delete=False)
 
-        # Generate speech with the speaking rate option
-        tts = gTTS(text=text, lang=language, slow=(speaking_rate == 'slow'))
+        # Generate speech with the speaking rate option and specific locale
+        tts = gTTS(text=text, lang=base_lang, lang_check=False, tld=language.split('-')[1], slow=(speaking_rate == 'slow'))
         tts.save(temp_file.name)
 
         # Send the file
